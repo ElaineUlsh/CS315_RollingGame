@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://cu8h78jwi4r2n"]
+
+[ext_resource type="Script" uid="uid://3swpvhjoc1bs" path="res://ground_movemrnt.gd" id="1_o4i4p"]
+[ext_resource type="Material" uid="uid://dfgvlx2bjjswo" path="res://m_ground_material.tres" id="2_ptg3h"]
+[ext_resource type="Script" uid="uid://cok531t44pmwo" path="res://camera_3d.gd" id="3_8j4l7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l5r2v"]
+size = Vector3(5.19715, 0.213623, 1.60931)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o4i4p"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ptg3h"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_8j4l7"]
+
+[node name="MonkeyBall" type="Node3D"]
+
+[node name="Ground Holder" type="Node3D" parent="."]
+script = ExtResource("1_o4i4p")
+
+[node name="Ground" type="StaticBody3D" parent="Ground Holder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground Holder/Ground"]
+transform = Transform3D(0.854379, 0, 0, 0, 0.854379, 0, 0, 0, 0.854379, 0.00311157, 0.00823925, 0.00576226)
+shape = SubResource("BoxShape3D_l5r2v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground Holder/Ground"]
+transform = Transform3D(4.44353, 0, 0, 0, 0.18131, 0, 0, 0, 1.37924, 0, 0, 0)
+material_override = ExtResource("2_ptg3h")
+mesh = SubResource("BoxMesh_o4i4p")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.975347, 0.187051, -0.117092, 0.0308543, 0.409801, 0.911653, 0.21851, -0.89279, 0.393927, -2.67029, 10.4198, 10.0981)
+
+[node name="Player" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.36597, 0.569989, -2.86327)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_ptg3h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("SphereMesh_8j4l7")
+
+[node name="Camera3D" type="Camera3D" parent="Player" node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(0.00371749, -0.411512, 0.911397, 0, 0.911403, 0.411514, -0.999993, -0.0015298, 0.00338813, 0.282072, 1.11134, -2.93143)
+top_level = true
+fov = 56.25
+script = ExtResource("3_8j4l7")
+follow_target = NodePath("..")
