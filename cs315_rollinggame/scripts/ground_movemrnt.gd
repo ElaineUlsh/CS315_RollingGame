@@ -1,7 +1,7 @@
 extends Node3D
 
 func _process(delta: float) -> void:
-	var player_dir = Input.get_vector("left", "right", "down", "up")
+	var player_dir = Input.get_vector("left", "right", "up", "down")
 	
 	##movement will be in the x and z directions
 	## do the roation
